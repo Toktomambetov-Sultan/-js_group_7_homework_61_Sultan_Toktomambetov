@@ -1,0 +1,11 @@
+.country-info__info-group{
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px;
+    max-width: 100%;
+  }
+  .country-info__key{
+    font-size: 22px;
+    color: rgb(102, 255, 0) ;
+    margin-right: 5px;
+  }

@@ -1,5 +1,7 @@
 import Axios from "axios";
 import React, { useEffect, useState, useCallback } from "react";
+import CountryItem from "../../components/CountriesList/CountryItem/CountryItem";
+import CountryInfoGroup from "../../components/CountryInfo/CountryInfoGroup/CountryInfoGroup";
 import "./App.css";
 
 const BASE_URL = "https://restcountries.com/v2/",
@@ -36,22 +38,21 @@ function App() {
   );
   const countryInfoDescriprions = {
     Capital: countryInfo.capital,
+    Region: countryInfo.region,
+    Area: countryInfo.area,
+    Population: countryInfo.population,
   };
   return (
     <div className="container">
       <div className="App">
         <ul className="countries_list">
           {countriesNames.map(countryName => (
-            <li
-              className={[
-                "country_item",
-                countryName.name === countryInfo.name ? "active" : "",
-              ].join(" ")}
+            <CountryItem
+              onHeaderClick={setCurrentCountry}
+              currentCountry={currentCountry}
+              countryName={countryName}
               key={countryName.name}
-              onClick={() => setCurrentCountry(countryName.name)}
-            >
-              {countryName.name}
-            </li>
+            />
           ))}
         </ul>
         <div className="country-info">
@@ -64,14 +65,13 @@ function App() {
             />
           </div>
           <div className="country-info__bottom">
-            <div className="country-info__info-group">
-              <span className="country-info__key">Capital: </span>
-              <span className="country-info__value">{countryInfo.capital}</span>
-            </div>
-            <div className="country-info__info-group">
-              <span className="country-info__key">Region: </span>
-              <span className="country-info__value">{countryInfo.region}</span>
-            </div>
+            {Object.keys(countryInfoDescriprions).map(key => (
+              <CountryInfoGroup
+                key={key}
+                attr={key}
+                value={countryInfoDescriprions[key]}
+              />
+            ))}
           </div>
         </div>
       </div>
